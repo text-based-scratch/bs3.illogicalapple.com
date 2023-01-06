@@ -11,7 +11,8 @@
     "url": "https://github.com/text-based-scratch/bs3.illogicalapple.com.git"
   },
   "scripts": {
-    "start": "parcel src/index.html"
+    "build": "parcel build src/index.pug",
+    "start": "parcel src/index.pug"
   },
   "dependencies" {
     "parcel": "^2.0.0"
