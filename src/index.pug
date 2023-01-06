@@ -1,6 +1,20 @@
-!doctype html
+doctype html
+
 html
   head
     title text based scratch
+    script(src="index.js") 
+    link(rel="stylesheet", href="css/index.css")
   body
-    h1 test
+    nav
+      a.option(href="javascript:void(0)") File
+      a.option(href="javascript:void(0)") Edit 
+      div.divider
+      input.title(type="text", value="Untitled Project")
+    main 
+      div.left
+        div.tabs
+        div.editor
+          div.files
+          div.text-editor
+      div.right

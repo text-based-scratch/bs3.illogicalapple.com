@@ -1,0 +1,47 @@
+nav {
+  background-color: var(--main-color);
+  color: white;
+  height: 3rem;
+  font-size: 0.75rem;
+}
+
+nav a.option {
+  color: white;
+  text-decoration: none;
+  padding: 1.125rem 1em;
+  display: inline-block;
+  position: relative;
+  top: calc(50% - 2.5em);
+}
+
+nav a.option:hover {
+  background-color: hsla(0, 0%, 0%, 0.15);
+}
+
+nav div.divider {
+  border-right: 1px dashed hsla(0, 0%, 0%, 0.15);
+  display: inline-block;
+  margin: 0 0.5rem;
+  height: 2.125rem;
+  position: relative;
+  top: calc(50% - 1.0625rem);
+}
+
+nav input.title {
+  border: 1px dashed hsla(0, 0%, 0%, 0.15);
+  color: white;
+  background-color: hsla(0, 100%, 100%, 0.25);
+  padding: 0.5rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  position: relative;
+  bottom: calc(0.75rem - 50% + 1px);
+  transform: translateY(-50%);
+  border-radius: 0.25rem;
+  transition: 0.2s;
+}
+
+nav input.title:focus {
+  border: 1px dashed transparent;
+  background-color: white;
+}

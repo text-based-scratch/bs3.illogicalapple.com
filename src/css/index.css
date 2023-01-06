@@ -1,0 +1,30 @@
+@import url(./navbar.css);
+@import url(./left.css);
+@import url(./right.css);
+
+html, body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: bold;
+  --text-secondary: hsla(225, 15%, 40%, 1);
+  --main-color: hsla(215, 100%, 65%, 1)
+}
+
+input {
+  transition: 0.2s;
+}
+
+input:focus:focus:focus {
+  box-shadow: 0 0 0 calc(0.5rem * .5) hsla(0, 100%, 100%, 0.25);
+  outline: none;
+  color: var(--text-secondary);
+}
+
+main {
+  display: flex;
+  top: 3rem;
+  position: absolute;
+  height: calc(100vh - 3rem);
+  width: 100vw;
+  gap: 0.5rem;
+}

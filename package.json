@@ -14,7 +14,7 @@
     "build": "parcel build src/index.pug",
     "start": "parcel src/index.pug"
   },
-  "dependencies" {
+  "dependencies": {
     "parcel": "^2.0.0"
   }
 }

@@ -1,0 +1,24 @@
+div.left {
+  flex-grow: 1;
+}
+
+div.tabs {
+  height: 44px;
+}
+
+div.editor {
+  flex-grow: 1;
+  display: flex;
+  height: calc(100vh - 3rem - 44px);
+  position: relative;
+}
+
+div.editor div.files {
+  background-color: darkgray;
+  width: 310px;
+}
+
+div.editor div.text-editor {
+  background-color: lightgray;
+  flex-grow: 1;
+}
