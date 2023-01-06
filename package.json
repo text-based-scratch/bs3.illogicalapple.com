@@ -1,0 +1,19 @@
+{
+  "name": "bs3",
+  "version": "0.1.0",
+  "description": "make .bs3 projects",
+  "author": "illogicalapple",
+  "license": "MIT",
+  "homepage": "https://github.com/text-based-scratch/text-based-scratch#readme",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/text-based-scratch/bs3.illogicalapple.com.git"
+  },
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "dependencies" {
+    "parcel": "^2.0.0"
+  }
+}
