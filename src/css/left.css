@@ -1,24 +1,108 @@
-div.left {
-  flex-grow: 1;
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
-div.tabs {
-  height: 44px;
+div.left {
+  flex-grow: 1;
+  font-weight: normal;
 }
 
 div.editor {
+  font-family: "Source Code Pro", monospace;
+  background-color: white;
   flex-grow: 1;
   display: flex;
-  height: calc(100vh - 3rem - 44px);
+  height: calc(100vh - 3.5rem - 44px);
   position: relative;
 }
 
 div.editor div.files {
-  background-color: darkgray;
+  border: 1px solid lightgray;
+  border-right: none;
   width: 310px;
 }
 
 div.editor div.text-editor {
-  background-color: lightgray;
+  border-radius: 0 0.5rem 0.5rem 0;
+  border: 1px solid lightgray;
+  padding: 1rem;
   flex-grow: 1;
+  outline: none;
+  cursor: text;
+  transition: 0.2s;
+  overflow: auto;
+}
+
+div.editor div.contenteditable:focus ~ div.text-editor {
+  box-shadow: 0 0 0 0.25rem hsl(215deg 100% 65% / 35%);
+  border-color: hsla(215, 100%, 65%, 1);
+}
+
+div.editor div.contenteditable {
+  width: 0;
+  height: 0;
+  border: none;
+  outline: none;
+  overflow: hidden;
+}
+
+div.text-editor div.caret {
+  border-right: 1px solid black;
+  display: inline-block;
+  height: 1em;
+  position: absolute;
+  top: calc(1rem + 0.25em);
+}
+
+div.text-editor pre.text {
+  width: 100%;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+}
+
+div.text-editor div.caret.animation {
+  animation: blink 1s step-start 0s infinite backwards;
+}
+
+div.editor div.contenteditable:not(:focus) ~ div.text-editor div.caret {
+  display: none;
+}
+
+ul.tabs li.tab {
+  height: 80%;
+  position: relative;
+  top: 20%;
+  border-radius: 1rem 1rem 0 0;
+  background-color: hsla(215, 50%, 90%, 1);
+  border: 1px solid lightgray;
+  padding: 0.125rem 1.25rem 0;
+  display: inline-block;
+  border-bottom: none;
+}
+
+ul.tabs li.tab.active {
+  color: hsla(215, 100%, 65%, 1);
+  height: 90%;
+  top: 10%;
+  background-color: white;
+}
+
+ul.tabs {
+  margin: 0;
+  height: 44px;
+  padding: 0;
+  font-size: 0.75rem;
+}
+
+ul.tabs li.tab img {
+  height: 1.375rem;
+  margin-right: 0.125rem;
+  user-select: none;
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
 }
