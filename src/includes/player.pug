@@ -1,0 +1,25 @@
+//- https://github.com/forkphorus/forkphorus/
+
+style.
+  div.player-wrapper .hide-ui .player {
+    box-shadow: none;
+  }
+  div.player-wrapper .has-ui .player-stage .forkphorus-root {
+    outline: 1px solid rgba(0, 0, 0, 0.4);
+    margin-left: 1px;
+  }
+  div.player-wrapper .has-ui .player-root[theme=dark] .player-stage .forkphorus-root {
+    outline: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: 1px;
+  }
+
+.player-wrapper 
+  .player 
+  script(src="lib/canvg.min.js")
+  script(src="lib/fontfaceobserver.standalone.js")
+  script(src="lib/jszip.min.js")
+  script(src="lib/purify.min.js")
+  script(src="lib/scratch-sb1-converter.js")
+  script(src="forkphorus.dist.js")
+  script(src="forkphorus-common.js")
+  script(src="js/player.js")

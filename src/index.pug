@@ -3,8 +3,7 @@ doctype html
 html(lang="en")
   head
     title text based scratch
-    script(src="index.js") 
-    script(src="scratch-vm/dist/web/scratch-vm.min.js") 
+    script(src="js/index.js")
     link(rel="stylesheet", href="css/index.css")
     link(rel="shortcut icon" href="favicon.ico")
     link(rel="preconnect" href="https://fonts.googleapis.com")
@@ -14,19 +13,20 @@ html(lang="en")
     nav
       a.option(href="javascript:void(0)" tabindex="1") File
       a.option(href="javascript:void(0)" tabindex="2") Edit 
-      div.divider
+      .divider
       input.title(type="text", value="Untitled Project", tabindex="3")
     main 
-      div.left
+      .left
         ul.tabs
           li.tab.active
             img(src="assets/code-icon.svg", alt="Code Icon" draggable="false")
             span Code
-        div.editor
-          div.files
-          div.contenteditable(contenteditable="true")
+        .editor
+          .files
+          .contenteditable(contenteditable="true")
             br
-          div.text-editor(tabindex="4")
-            div.caret.animation
+          .text-editor(tabindex="4")
+            .caret.animation
             pre.text
-      div.right
+      .right
+        include includes/player.pug

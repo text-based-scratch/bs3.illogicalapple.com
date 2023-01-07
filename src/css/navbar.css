@@ -14,7 +14,8 @@ nav a.option {
   top: calc(50% - 2.5em);
 }
 
-nav a.option:hover {
+nav a.option:is(:hover, :focus) {
+  outline: none;
   background-color: hsla(0, 0%, 0%, 0.15);
 }
 
