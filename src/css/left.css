@@ -11,10 +11,9 @@ div.left {
 
 div.editor {
   font-family: "Source Code Pro", monospace;
-  background-color: white;
   flex-grow: 1;
   display: flex;
-  height: calc(100vh - 3.5rem - 44px);
+  height: calc(100vh - 6.25rem);
   position: relative;
 }
 
@@ -22,17 +21,19 @@ div.editor div.files {
   border: 1px solid lightgray;
   border-right: none;
   width: 310px;
+  background-color: white;
 }
 
 div.editor div.text-editor {
   border-radius: 0 0.5rem 0.5rem 0;
   border: 1px solid lightgray;
-  padding: 1rem;
   flex-grow: 1;
   outline: none;
   cursor: text;
   transition: 0.2s;
-  overflow: auto;
+  background-color: white;
+  position: relative;
+  padding: 1rem;
 }
 
 div.editor div.contenteditable:focus ~ div.text-editor {
@@ -57,11 +58,17 @@ div.text-editor div.caret {
 }
 
 div.text-editor pre.text {
-  width: 100%;
+  padding: 1rem;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
   border-radius: 0 0.5rem 0.5rem 0;
   font-family: inherit;
   font-size: inherit;
   margin: 0;
+  overflow: auto;
 }
 
 div.text-editor div.caret.animation {
@@ -93,7 +100,7 @@ ul.tabs li.tab.active {
 
 ul.tabs {
   margin: 0;
-  height: 44px;
+  height: 2.75rem;
   padding: 0;
   font-size: 0.75rem;
 }

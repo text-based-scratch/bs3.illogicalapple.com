@@ -27,7 +27,3 @@ player.onerror.subscribe(function(error) {
 player.onpause.subscribe(function(error) {
   console.log("paused")
 });
-
-function loadProject(file) {
-  player.loadProjectFromBuffer(file)
-}

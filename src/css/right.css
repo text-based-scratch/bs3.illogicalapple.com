@@ -1,4 +1,93 @@
 div.right {
-  width: 480px;
+  width: calc(480px + 0.5rem);
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+div.player-wrapper {
+  height: calc(2.75rem + 360px);
+}
+
+div.player-stage {
+  border-radius: 0.5rem;
+  border: 1px solid lightgray;
+  overflow: hidden;
+  background-color: white;
+}
+
+div.player-controls {
+  height: 2.75rem;
+}
+
+div.player-controls.player-controls span {
+  top: calc(1.375rem - 16px); /* not magic number: 16px is half the image size */
+  position: relative;
+  opacity: 1;
+  right: 0.5rem;
+}
+
+div.player-controls.player-controls span.player-pause {
+  display: none;
+}
+
+div.player-controls span.player-fullscreen-btn {
+  border-radius: 0.25rem;
+  border: 1px solid lightgray;
+  background-color: white;
+  background-position: -129px -1px;
+  right: unset;
+}
+
+div.player-controls span.player-flag {
+  background-position: -1px 1px;
+}
+
+div.player-controls span.player-stop {
+  background-position: -95.5px -0.5px;
+}
+
+div.player-controls span:is(.player-flag, .player-stop):hover {
+  background-color: hsla(215, 100%, 65%, 0.15);
+  border-radius: 0.25rem;
+}
+
+div.right div.sprite-pane {
+  display: flex;
+  flex-grow: 1;
+  width: 480px;
+  gap: 0.5rem;
+  font-size: 0.5rem;
+}
+
+div.sprite-pane div.stage-selector {
+  flex-basis: 72px;
+  flex-shrink: 0;
+  background-color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+}
+
+div.sprite-pane div.sprite-selector {
+  flex-grow: 1;
+  background-color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid lightgray;
+}
+
+div.sprite-pane div.stage-selector div.stage-header {
+  flex-basis: calc(2.75rem - 2px);
+  flex-shrink: 0;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+div.sprite-pane-header {
+  font-size: 0.625rem;
 }

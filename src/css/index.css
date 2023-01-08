@@ -4,6 +4,7 @@
 
 html, body {
   background-color: #4280d7;
+  color: var(--text-secondary);
   margin: 0;
   font-family: "Helvetica Neue", Helvetica;
   font-weight: bold;

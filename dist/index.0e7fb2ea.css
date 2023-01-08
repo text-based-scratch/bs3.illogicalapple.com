@@ -59,8 +59,7 @@ div.left {
 }
 
 div.editor {
-  height: calc(100vh - 3.5rem - 44px);
-  background-color: #fff;
+  height: calc(100vh - 6.25rem);
   flex-grow: 1;
   font-family: Source Code Pro, monospace;
   display: flex;
@@ -69,19 +68,21 @@ div.editor {
 
 div.editor div.files {
   width: 310px;
+  background-color: #fff;
   border: 1px solid #d3d3d3;
   border-right: none;
 }
 
 div.editor div.text-editor {
   cursor: text;
+  background-color: #fff;
   border: 1px solid #d3d3d3;
   border-radius: 0 .5rem .5rem 0;
   outline: none;
   flex-grow: 1;
   padding: 1rem;
   transition: all .2s;
-  overflow: auto;
+  position: relative;
 }
 
 div.editor div.contenteditable:focus ~ div.text-editor {
@@ -106,11 +107,14 @@ div.text-editor div.caret {
 }
 
 div.text-editor pre.text {
-  width: 100%;
   font-family: inherit;
   font-size: inherit;
   border-radius: 0 .5rem .5rem 0;
   margin: 0;
+  padding: 1rem;
+  position: absolute;
+  inset: 0;
+  overflow: auto;
 }
 
 div.text-editor div.caret.animation {
@@ -141,7 +145,7 @@ ul.tabs li.tab.active {
 }
 
 ul.tabs {
-  height: 44px;
+  height: 2.75rem;
   margin: 0;
   padding: 0;
   font-size: .75rem;
@@ -158,11 +162,101 @@ ul.tabs li.tab img {
 }
 
 div.right {
-  width: 480px;
+  width: calc(480px + .5rem);
   height: 100%;
+  flex-direction: column;
+  gap: .5rem;
+  display: flex;
+}
+
+div.player-wrapper {
+  height: calc(2.75rem + 360px);
+}
+
+div.player-stage {
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: .5rem;
+  overflow: hidden;
+}
+
+div.player-controls {
+  height: 2.75rem;
+}
+
+div.player-controls.player-controls span {
+  opacity: 1;
+  position: relative;
+  top: calc(1.375rem - 16px);
+  right: .5rem;
+}
+
+div.player-controls.player-controls span.player-pause {
+  display: none;
+}
+
+div.player-controls span.player-fullscreen-btn {
+  right: unset;
+  background-color: #fff;
+  background-position: -129px -1px;
+  border: 1px solid #d3d3d3;
+  border-radius: .25rem;
+}
+
+div.player-controls span.player-flag {
+  background-position: -1px 1px;
+}
+
+div.player-controls span.player-stop {
+  background-position: -95.5px -.5px;
+}
+
+div.player-controls span:is(.player-flag, .player-stop):hover {
+  background-color: #4c97ff26;
+  border-radius: .25rem;
+}
+
+div.right div.sprite-pane {
+  width: 480px;
+  flex-grow: 1;
+  gap: .5rem;
+  font-size: .5rem;
+  display: flex;
+}
+
+div.sprite-pane div.stage-selector {
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: .5rem .5rem 0 0;
+  flex-direction: column;
+  flex-shrink: 0;
+  flex-basis: 72px;
+  display: flex;
+}
+
+div.sprite-pane div.sprite-selector {
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: .5rem .5rem 0 0;
+  flex-grow: 1;
+}
+
+div.sprite-pane div.stage-selector div.stage-header {
+  border-bottom: 1px solid #d3d3d3;
+  flex-direction: column;
+  flex-shrink: 0;
+  flex-basis: calc(2.75rem - 2px);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+div.sprite-pane-header {
+  font-size: .625rem;
 }
 
 html, body {
+  color: var(--text-secondary);
   --text-secondary: #575e75;
   --main-color: #4c97ff;
   background-color: #4280d7;
