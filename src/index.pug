@@ -25,14 +25,31 @@ html(lang="en")
         .editor
           .files
           .contenteditable(contenteditable="true")
-            br
+            |&nbsp;
           .text-editor(tabindex="4")
-            .caret.animation
             pre.text
+              div.caret.animation
       .right
         include includes/player.pug
         .sprite-pane
           .sprite-selector 
+            .sprite-info
+              .sprite-info-row
+                .sprite-option
+                  label(for="sprite-name") Sprite 
+                  input.sprite-name(placeholder="Name" name="sprite-name")
+                .flex-grow.sprite-option.flex
+                  img(src="assets/x-icon.svg", alt="Left-right icon")
+                  label(for="sprite-x") x
+                  input.flex-grow.sprite-x(placeholder="x" name="sprite-x")
+                .flex-grow.sprite-option.flex
+                  img(src="assets/y-icon.svg", alt="Left-right icon")
+                  label(for="sprite-y") y
+                  input.flex-grow.sprite-y(placeholder="y" name="sprite-y")
+              .sprite-info-row 
+                .sprite-option.flex-grow
+                  label(for="file-path") File Path 
+                  input.file-type.flex-grow(placeholder="path/to/file.tbsprite" name="file-path")
           .stage-selector
             .sprite-pane-header.stage-header
               span Stage

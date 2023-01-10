@@ -35,3 +35,7 @@ main {
 * {
   box-sizing: border-box;
 }
+
+.flex-grow {
+  flex-grow: 1;
+}

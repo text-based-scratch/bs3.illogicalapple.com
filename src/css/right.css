@@ -58,7 +58,7 @@ div.right div.sprite-pane {
   flex-grow: 1;
   width: 480px;
   gap: 0.5rem;
-  font-size: 0.5rem;
+  font-size: 0.625rem;
 }
 
 div.sprite-pane div.stage-selector {
@@ -73,7 +73,6 @@ div.sprite-pane div.stage-selector {
 
 div.sprite-pane div.sprite-selector {
   flex-grow: 1;
-  background-color: white;
   border-radius: 0.5rem 0.5rem 0 0;
   border: 1px solid lightgray;
 }
@@ -88,6 +87,63 @@ div.sprite-pane div.stage-selector div.stage-header {
   justify-content: center;
 }
 
-div.sprite-pane-header {
+.sprite-pane-header {
   font-size: 0.625rem;
+}
+
+div.sprite-info {
+  padding: 0.75rem;
+  border-bottom: 1px solid lightgray;
+  background-color: white;
+  border-radius: inherit;
+}
+
+div.sprite-info input {
+  height: 2rem;
+  border-radius: 1rem;
+  border: 1px solid lightgray;
+  padding: 0 0.75rem;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  transition: 0.2s;
+  color: inherit;
+}
+
+div.sprite-info input:focus:focus:focus {
+  box-shadow: 0 0 0 0.25rem hsl(215deg 100% 65% / 35%);
+  border-color: hsla(215, 100%, 65%, 1);
+}
+
+div.sprite-info input.sprite-name {
+  width: 8rem;
+}
+
+div.sprite-pane div.sprite-option {
+  display: inline-block;
+}
+
+div.sprite-info div.sprite-info-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+div.sprite-info div.sprite-info-row:last-child {
+  margin-bottom: 0;
+}
+
+div.sprite-info div.sprite-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+div.sprite-info div.sprite-option.flex input {
+  width: 0px;
+}
+
+div.sprite-info div.sprite-option input:is(.sprite-x, .sprite-y) {
+  text-align: center;
 }

@@ -98,17 +98,22 @@ div.editor div.contenteditable {
   overflow: hidden;
 }
 
+div.editor div.contenteditable div {
+  display: contents;
+}
+
 div.text-editor div.caret {
-  height: 1em;
+  height: 2ch;
   border-right: 1px solid #000;
   display: inline-block;
   position: absolute;
-  top: calc(1rem + .25em);
+  transform: translateY(.25ch);
 }
 
 div.text-editor pre.text {
   font-family: inherit;
   font-size: inherit;
+  color: #000;
   border-radius: 0 .5rem .5rem 0;
   margin: 0;
   padding: 1rem;
@@ -220,7 +225,7 @@ div.right div.sprite-pane {
   width: 480px;
   flex-grow: 1;
   gap: .5rem;
-  font-size: .5rem;
+  font-size: .625rem;
   display: flex;
 }
 
@@ -235,7 +240,6 @@ div.sprite-pane div.stage-selector {
 }
 
 div.sprite-pane div.sprite-selector {
-  background-color: #fff;
   border: 1px solid #d3d3d3;
   border-radius: .5rem .5rem 0 0;
   flex-grow: 1;
@@ -251,8 +255,65 @@ div.sprite-pane div.stage-selector div.stage-header {
   display: flex;
 }
 
-div.sprite-pane-header {
+.sprite-pane-header {
   font-size: .625rem;
+}
+
+div.sprite-info {
+  border-radius: inherit;
+  background-color: #fff;
+  border-bottom: 1px solid #d3d3d3;
+  padding: .75rem;
+}
+
+div.sprite-info input {
+  height: 2rem;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: 1px solid #d3d3d3;
+  border-radius: 1rem;
+  padding: 0 .75rem;
+  transition: all .2s;
+}
+
+div.sprite-info input:focus:focus:focus {
+  border-color: #4c97ff;
+  box-shadow: 0 0 0 .25rem #4c97ff59;
+}
+
+div.sprite-info input.sprite-name {
+  width: 8rem;
+}
+
+div.sprite-pane div.sprite-option {
+  display: inline-block;
+}
+
+div.sprite-info div.sprite-info-row {
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .5rem;
+  display: flex;
+}
+
+div.sprite-info div.sprite-info-row:last-child {
+  margin-bottom: 0;
+}
+
+div.sprite-info div.sprite-option {
+  align-items: center;
+  gap: .5rem;
+  display: inline-flex;
+}
+
+div.sprite-info div.sprite-option.flex input {
+  width: 0;
+}
+
+div.sprite-info div.sprite-option input:is(.sprite-x, .sprite-y) {
+  text-align: center;
 }
 
 html, body {
@@ -287,6 +348,10 @@ main {
 
 * {
   box-sizing: border-box;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 /*# sourceMappingURL=index.0e7fb2ea.css.map */

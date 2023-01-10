@@ -49,12 +49,16 @@ div.editor div.contenteditable {
   overflow: hidden;
 }
 
+div.editor div.contenteditable div {
+  display: contents;
+}
+
 div.text-editor div.caret {
   border-right: 1px solid black;
   display: inline-block;
-  height: 1em;
+  height: 2ch;
+  transform: translateY(0.25ch);
   position: absolute;
-  top: calc(1rem + 0.25em);
 }
 
 div.text-editor pre.text {
@@ -69,6 +73,7 @@ div.text-editor pre.text {
   font-size: inherit;
   margin: 0;
   overflow: auto;
+  color: black;
 }
 
 div.text-editor div.caret.animation {
