@@ -10,7 +10,6 @@ div.left {
 }
 
 div.editor {
-  font-family: "Source Code Pro", monospace;
   flex-grow: 1;
   display: flex;
   height: calc(100vh - 6.25rem);
@@ -25,6 +24,7 @@ div.editor div.files {
 }
 
 div.editor div.text-editor {
+  font-family: "Source Code Pro", monospace;
   border-radius: 0 0.5rem 0.5rem 0;
   border: 1px solid lightgray;
   flex-grow: 1;
@@ -56,13 +56,12 @@ div.editor div.contenteditable div {
 div.text-editor div.caret {
   border-right: 1px solid black;
   display: inline-block;
-  height: 2ch;
-  transform: translateY(0.25ch);
+  height: 1.25em;
   position: absolute;
 }
 
 div.text-editor pre.text {
-  padding: 1rem;
+  padding: 1rem 0;
   top: 0;
   bottom: 0;
   left: 0;
@@ -74,10 +73,27 @@ div.text-editor pre.text {
   margin: 0;
   overflow: auto;
   color: black;
+  counter-reset: line;
 }
 
 div.text-editor div.caret.animation {
   animation: blink 1s step-start 0s infinite backwards;
+}
+
+div.text-editor pre.text div.line {
+  padding: 1px 1rem;
+  height: 1.25em;
+  counter-increment: line;
+}
+
+div.text-editor pre.text div.line::before {
+  content: counter(line);
+  margin-right: 1rem;
+  color: gray;
+}
+
+div.text-editor pre.text div.line.active {
+  background-color: hsla(0, 0%, 0%, 0.05);
 }
 
 div.editor div.contenteditable:not(:focus) ~ div.text-editor div.caret {
@@ -117,4 +133,29 @@ ul.tabs li.tab img {
   top: 50%;
   transform: translateY(-50%);
   position: relative;
+}
+
+div.editor div.files {
+  padding: 1rem;
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: black;
+}
+
+div.editor div.files ul.folder {
+  padding: 1rem;
+  border-left: 1px solid lightgray;
+  list-style-type: none;
+  position: relative;
+}
+
+div.editor div.files ul.folder li.file::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  border-bottom: 1px solid lightgray;
+  position: absolute;
+  left: 0;
+  transform: translateY(0.5rem);
 }

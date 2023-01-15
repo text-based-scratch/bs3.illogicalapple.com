@@ -4,6 +4,7 @@ html(lang="en")
   head
     title text based scratch
     script(src="js/index.js")
+    script(type="module" src="js/autocomplete.js")
     link(rel="stylesheet", href="css/index.css")
     link(rel="shortcut icon" href="favicon.ico")
     link(rel="preconnect" href="https://fonts.googleapis.com")
@@ -24,6 +25,13 @@ html(lang="en")
             span Code
         .editor
           .files
+            strong Untitled Project
+            ul.folder 
+              li.file test.tbsprite
+              li.file img.png
+              li.file test folder 
+                ul.folder 
+                  li.file nested.tbsprite 
           .contenteditable(contenteditable="true")
             |&nbsp;
           .text-editor(tabindex="4")
