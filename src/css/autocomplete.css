@@ -1,0 +1,41 @@
+div.contenteditable:not(:focus) ~ div.text-editor ul.autocomplete {
+  display: none;
+}
+
+ul.autocomplete {
+  background-color: white;
+  border: 1px solid lightgray;
+  width: 15rem;
+  max-height: 10rem;
+  position: absolute;
+  list-style-type: none;
+  z-index: 2;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow-y: auto;
+}
+
+ul.autocomplete li.candidate {
+  border-bottom: 1px solid lightgray;
+  padding: 1px;
+  --candidate-color: lightgray;
+}
+
+ul.autocomplete li.candidate.active {
+  background-color: lightgray;
+}
+
+ul.autocomplete li.candidate:last-child {
+  border: none;
+}
+
+ul.autocomplete li.candidate::before {
+  content: "";
+  background-color: var(--candidate-color);
+  height: 1ex;
+  width: 1ex;
+  border-radius: 0.5ex;
+  display: inline-block;
+  margin-right: 0.5em;
+  margin-left: 2px;
+}

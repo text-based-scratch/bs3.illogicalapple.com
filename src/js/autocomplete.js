@@ -1,56 +1,70 @@
 import blocks from "../lib/blocks.js"
 
-let formatData = {
-  motion: "4C97FF",
-  looks: "9966FF",
-  sound: "CF63CF",
-  event: "FFBF00",
-  control: "FFAB19",
-  sensing: "5CB1D6",
-  operators: "59C059",
-  data: "FF8C1A",
-  procedures: "FF6680"
+let completeEl = $("ul.autocomplete")
+let tempListener = () => selectListener(activeWord)
+
+function selectListener(event, activeWord) {
+  if(event.key == "ArrowDown") {
+    event.stopPropagation()
+    if(Number(completeEl.dataset.activeIndex) < completeEl.childNodes.length - 1) {
+      completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.remove("active")
+      completeEl.dataset.activeIndex++
+      completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.add("active")
+    } else {
+      completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.remove("active")
+      completeEl.dataset.activeIndex = 0
+      completeEl.childNodes[0].classList.add("active")
+    }
+  } else if(event.key == "ArrowUp") {
+    event.stopPropagation()
+    if(Number(completeEl.dataset.activeIndex) > 0) {
+      completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.remove("active")
+      completeEl.dataset.activeIndex--
+      completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.add("active")
+    } else {
+      completeEl.childNodes[0].classList.remove("active")
+      completeEl.dataset.activeIndex = completeEl.childNodes.length - 1
+      completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.add("active")
+    }
+  }
 }
 
-function complete() {}
-function format(lines) {
-  let formatRegex = "([^\\w]|)KEYWORD([^\\w]|)" // the double backslashes are normal backslashes
-  lines.forEach(line => {
-    let innerText = line.innerText.split(/[^(\w|\_)]/)
-    let textNodes = []
-    let offset = 0
-    let keywordRegex = new RegExp(formatRegex.replace("KEYWORD", ""), "g")
-    innerText.forEach(word => {
-      if(blocks.hasOwnProperty(word)) {
-        let wordRange = document.createRange()
-        let blockType = blocks[word].opcode.split("_")[0]
-        let span = document.createElement("span")
-        span.classList.add("function", `function-${blockType}`)
-        span.style.color = `#${formatData[blockType]}`
-        wordRange.setStart(line, offset)
-        if(offset + word.length - 1 > 0) wordRange.setEnd(line, offset + word.length - 1)
-        else wordRange.setEnd(line, 0)
-        textNodes.push({ wordRange, span })
-      } else {
-        let wordRange = document.createRange()
-        let span = document.createElement("span")
-        span.classList.add("normal-text")
-        wordRange.setStart(line, offset)
-        if(offset + word.length - 1 > 0) wordRange.setEnd(line, offset + word.length - 1)
-        else wordRange.setEnd(line, 0)
-        textNodes.push({ wordRange, span })
+window.autocomplete = () => {
+  let wrap = false
+  let candidates = []
+  let activeWord = $("pre.text").querySelectorAll("div.line")[caretPosition[1]].innerText.split(/[^a-z0-9\_]/i)
+  activeWord = activeWord[activeWord.length - 1]
+  completeEl.style.display = "block"
+  completeEl.dataset.activeIndex = 0
+  if(activeWord != "") {
+    let goodCandidates = Object.entries(blocks).filter(block => block[0].startsWith(activeWord))
+    let worseCandidates = Object.entries(blocks).filter(block => block[0].includes(activeWord))
+    let candidateBlocks = []
+    goodCandidates.concat(worseCandidates).forEach(candidate => {
+      if(!candidateBlocks.map(e => e[1].opcode).includes(candidate[1].opcode)) {
+        candidateBlocks.push(candidate)
       }
-      offset += word.length + 1
     })
-    textNodes.forEach(node => {
-      node.wordRange.surroundContents(node.span)
-    })
-  })
-  $("div.contenteditable").focus()
-}
-
-window.autocomplete = function autocomplete() {
-  let target = document.querySelector("pre.text")
-  let lines = target.querySelectorAll("div.line")
-  format(lines)
+    if(candidateBlocks.length > 0) {
+      completeEl.style.left = `calc(${caretPosition[0]}ch + 2rem + ${String(caretPosition[1] + 1).length}ch)`
+      completeEl.style.top = `calc(${(caretPosition[1] + (!wrap)) * 1.25}em - ${$("pre.text").scrollTop + completeEl.getBoundingClientRect().height * wrap}px)`
+      candidateBlocks.forEach((candidate, index) => {
+        let element = document.createElement("li")
+        element.classList.add("candidate")
+        if(index == Number(completeEl.dataset.activeIndex)) element.classList.add("active")
+        element.innerText = candidate[0]
+        element.style.setProperty("--candidate-color", `#${formatData[candidate[1].opcode.split("_")[0]]}`)
+        candidates.push(element)
+      })
+      completeEl.replaceChildren(...candidates)
+      tempListener = e => selectListener(e, activeWord)
+      $("div.contenteditable").addEventListener("keydown", tempListener)
+    } else {
+      completeEl.style.display = "none"
+      $("div.contenteditable").removeEventListener("keydown", tempListener)
+    }
+  } else { 
+    completeEl.style.display = "none"
+    $("div.contenteditable").removeEventListener("keydown", tempListener)
+  }
 }

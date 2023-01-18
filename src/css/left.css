@@ -34,6 +34,7 @@ div.editor div.text-editor {
   background-color: white;
   position: relative;
   padding: 1rem;
+  overflow: hidden;
 }
 
 div.editor div.contenteditable:focus ~ div.text-editor {
@@ -74,6 +75,7 @@ div.text-editor pre.text {
   overflow: auto;
   color: black;
   counter-reset: line;
+  z-index: 1;
 }
 
 div.text-editor div.caret.animation {
@@ -137,25 +139,58 @@ ul.tabs li.tab img {
 
 div.editor div.files {
   padding: 1rem;
-  font-family: "Source Code Pro", monospace;
-  font-size: 0.75rem;
   font-weight: normal;
   color: black;
-}
-
-div.editor div.files ul.folder {
-  padding: 1rem;
-  border-left: 1px solid lightgray;
-  list-style-type: none;
+  line-height: 2;
+  font-size: 0.9rem;
+  user-select: none;
   position: relative;
 }
 
-div.editor div.files ul.folder li.file::before {
+div.editor div.files > *:not(span.project-name) {
+  opacity: 0.6;
+}
+
+div.editor div.files ul.folder {
+  padding: 0 1rem;
+  position: relative;
+  list-style-type: none;
+  cursor: default;
+}
+
+div.editor div.files li.folder-wrapper[data-closed] *, span.project-name[data-closed] ~ ul.root-folder {
+  display: none;
+}
+
+:is(div.editor div.files li.folder-wrapper[data-closed], span.project-name[data-closed])::before {
+  transform: rotate(-90deg) translate(0.25em, -0.25em) /* x is y and y is x */
+}
+
+div.editor div.files li.folder-wrapper, div.editor div.files span.project-name {
+  cursor: pointer;
+}
+
+:is(div.editor div.files li.folder-wrapper, div.editor div.files span.project-name)::before {
   content: "";
+  background-image: url("../assets/folder-icon.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
   display: inline-block;
-  width: 0.5rem;
-  border-bottom: 1px solid lightgray;
+  height: 0.5em;
+  width: 0.5em;
+  padding-right: 0.5em;
+}
+
+div.file-options a.new-file {
+  margin-right: 0.5rem;
+}
+
+div.file-options a img {
+  height: 1.5rem;
+}
+
+div.file-options {
   position: absolute;
-  left: 0;
-  transform: translateY(0.5rem);
+  bottom: 0.5rem;
+  right: 1rem;
 }

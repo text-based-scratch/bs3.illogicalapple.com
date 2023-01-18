@@ -4,7 +4,7 @@ html(lang="en")
   head
     title text based scratch
     script(src="js/index.js")
-    script(type="module" src="js/autocomplete.js")
+    script(type="module" src="js/format.js")
     link(rel="stylesheet", href="css/index.css")
     link(rel="shortcut icon" href="favicon.ico")
     link(rel="preconnect" href="https://fonts.googleapis.com")
@@ -25,18 +25,24 @@ html(lang="en")
             span Code
         .editor
           .files
-            strong Untitled Project
-            ul.folder 
+            span.project-name untitled-project
+            ul.folder.root-folder
               li.file test.tbsprite
               li.file img.png
-              li.file test folder 
+              li.file.folder-wrapper test-folder 
                 ul.folder 
                   li.file nested.tbsprite 
+            div.file-options
+              a(href="javascript:void(0)" class="new-file")
+                img(src="assets/new.svg", alt="Upload File")
+              a(href="javascript:void(0)" class="new-folder")
+                img(src="assets/folder.svg", alt="Create Folder")
           .contenteditable(contenteditable="true")
             |&nbsp;
           .text-editor(tabindex="4")
             pre.text
               div.caret.animation
+            include includes/autocomplete.pug
       .right
         include includes/player.pug
         .sprite-pane

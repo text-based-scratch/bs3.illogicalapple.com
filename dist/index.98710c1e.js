@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"8LntH":[function(require,module,exports) {
+})({"jVHsr":[function(require,module,exports) {
 "use strict";
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "6bc2a757ca3b80ad";
+module.bundle.HMR_BUNDLE_ID = "dbb58b0d98710c1e";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, globalThis, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
   HMRAsset,
@@ -531,75 +531,437 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"1KzgX":[function(require,module,exports) {
+},{}],"aztIg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _blocksJs = require("../lib/blocks.js");
 var _blocksJsDefault = parcelHelpers.interopDefault(_blocksJs);
-let completeEl = $("ul.autocomplete");
-let tempListener = ()=>selectListener(activeWord);
-function selectListener(event, activeWord1) {
-    if (event.key == "ArrowDown") {
-        event.stopPropagation();
-        if (Number(completeEl.dataset.activeIndex) < completeEl.childNodes.length - 1) {
-            completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.remove("active");
-            completeEl.dataset.activeIndex++;
-            completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.add("active");
-        } else {
-            completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.remove("active");
-            completeEl.dataset.activeIndex = 0;
-            completeEl.childNodes[0].classList.add("active");
-        }
-    } else if (event.key == "ArrowUp") {
-        event.stopPropagation();
-        if (Number(completeEl.dataset.activeIndex) > 0) {
-            completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.remove("active");
-            completeEl.dataset.activeIndex--;
-            completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.add("active");
-        } else {
-            completeEl.childNodes[0].classList.remove("active");
-            completeEl.dataset.activeIndex = completeEl.childNodes.length - 1;
-            completeEl.childNodes[Number(completeEl.dataset.activeIndex)].classList.add("active");
-        }
-    }
+var _keywordsJs = require("../lib/keywords.js");
+var _keywordsJsDefault = parcelHelpers.interopDefault(_keywordsJs);
+window.formatData = {
+    motion: "4c97ff",
+    looks: "9966ff",
+    sound: "cf63cf",
+    event: "de5b71",
+    control: "ffab19",
+    sensing: "5cb1d6",
+    operators: "59c059",
+    data: "ff8c1a",
+    procedures: "ff6680",
+    bool: "4781d1",
+    keyword: "ff6680"
+};
+let keywords = {};
+for (let word of (0, _keywordsJsDefault.default).outer.concat((0, _keywordsJsDefault.default).inner))keywords[word] = {
+    opcode: "keyword_" + word.replaceAll("_", "")
+};
+for (let word1 of (0, _keywordsJsDefault.default).events)keywords[word1] = {
+    opcode: "event_" + word1.replaceAll("_", "")
+};
+let blocks = Object.assign((0, _blocksJsDefault.default), keywords);
+function escape(text) {
+    return text.replaceAll("<", "&lt;", "&", "&amp;");
 }
-window.autocomplete = ()=>{
-    let wrap = false;
-    let candidates = [];
-    let activeWord1 = $("pre.text").querySelectorAll("div.line")[caretPosition[1]].innerText.split(/[^a-z0-9\_]/i);
-    activeWord1 = activeWord1[activeWord1.length - 1];
-    completeEl.style.display = "block";
-    completeEl.dataset.activeIndex = 0;
-    if (activeWord1 != "") {
-        let goodCandidates = Object.entries((0, _blocksJsDefault.default)).filter((block)=>block[0].startsWith(activeWord1));
-        let worseCandidates = Object.entries((0, _blocksJsDefault.default)).filter((block)=>block[0].includes(activeWord1));
-        let candidateBlocks = [];
-        goodCandidates.concat(worseCandidates).forEach((candidate)=>{
-            if (!candidateBlocks.map((e)=>e[1].opcode).includes(candidate[1].opcode)) candidateBlocks.push(candidate);
+function format(lines) {
+    lines.forEach((line)=>{
+        let innerText = line.innerText.split(/[^a-z0-9\_]/i);
+        let commonWords = innerText.filter((value)=>blocks.hasOwnProperty(value));
+        line.innerHTML = line.innerHTML.replace(/\-?[0-9\.]+/g, `<span class="number" style="color: #${formatData.operators}">$&</span>`).replaceAll("true", `<span class="boolean" style="color: #${formatData.bool}">true</span>`).replaceAll("false", `<span class="boolean" style="color: #${formatData.bool}">false</span>`);
+        commonWords.forEach((word)=>{
+            let blockType = blocks[word].opcode.split("_")[0];
+            line.innerHTML = line.innerHTML.replaceAll(word, `<span class="function type-${blockType}" style="color: #${formatData[blockType]}">${escape(word)}</span>`);
         });
-        if (candidateBlocks.length > 0) {
-            completeEl.style.left = `calc(${caretPosition[0]}ch + 2rem + ${String(caretPosition[1] + 1).length}ch)`;
-            completeEl.style.top = `calc(${(caretPosition[1] + !wrap) * 1.25}em - ${$("pre.text").scrollTop + completeEl.getBoundingClientRect().height * wrap}px)`;
-            candidateBlocks.forEach((candidate, index)=>{
-                let element = document.createElement("li");
-                element.classList.add("candidate");
-                if (index == Number(completeEl.dataset.activeIndex)) element.classList.add("active");
-                element.innerText = candidate[0];
-                element.style.setProperty("--candidate-color", `#${formatData[candidate[1].opcode.split("_")[0]]}`);
-                candidates.push(element);
-            });
-            completeEl.replaceChildren(...candidates);
-            tempListener = (e)=>selectListener(e, activeWord1);
-            $("div.contenteditable").addEventListener("keydown", tempListener);
-        } else {
-            completeEl.style.display = "none";
-            $("div.contenteditable").removeEventListener("keydown", tempListener);
-        }
-    } else {
-        completeEl.style.display = "none";
-        $("div.contenteditable").removeEventListener("keydown", tempListener);
+    });
+    $("div.contenteditable").focus();
+}
+window.format = function aaa() {
+    let target = document.querySelector("pre.text");
+    let lines = target.querySelectorAll("div.line");
+    format(lines);
+};
+
+},{"../lib/blocks.js":"kSYJ1","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../lib/keywords.js":"3Cz8y"}],"kSYJ1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const str = "str";
+const float = "float";
+const structures = {
+    float: [
+        1,
+        [
+            4,
+            "__VALUE__"
+        ]
+    ],
+    string: [
+        1,
+        [
+            10,
+            "__VALUE__"
+        ]
+    ],
+    angle: [
+        1,
+        [
+            9,
+            "__VALUE__"
+        ]
+    ],
+    field: [
+        "__VALUE__",
+        null
+    ]
+};
+function a(type, name, structure, isField) {
+    return {
+        type,
+        name,
+        structure,
+        isField: Boolean(isField)
+    };
+}
+exports.default = {
+    go_to: {
+        args: {
+            x: a(float, "X", structures.float),
+            y: a(float, "Y", structures.float)
+        },
+        opcode: "motion_gotoxy"
+    },
+    move_steps: {
+        args: {
+            steps: a(float, "STEPS", structures.float)
+        },
+        opcode: "motion_movesteps"
+    },
+    turn: {
+        args: {
+            degrees: a(float, "DEGREES", structures.float)
+        },
+        opcode: "motion_turnright"
+    },
+    go_to_sprite: {
+        args: {
+            sprite: a(str, "TO", structures.string)
+        },
+        opcode: "motion_goto"
+    },
+    glide_to_sprite: {
+        args: {
+            seconds: a(float, "SECS", structures.float),
+            sprite: a(str, "TO", structures.string)
+        },
+        opcode: "motion_glideto"
+    },
+    glide_to: {
+        args: {
+            seconds: a(float, "SECS", structures.float),
+            x: a(float, "X", structures.float),
+            y: a(float, "Y", structures.float)
+        },
+        opcode: "motion_glidesecstoxy"
+    },
+    set_direction: {
+        args: {
+            direction: a(float, "DIRECTION", structures.angle)
+        },
+        opcode: "motion_pointindirection"
+    },
+    point_towards: {
+        args: {
+            sprite: a(str, "TOWARDS", structures.string)
+        },
+        opcode: "motion_pointtowards"
+    },
+    change_x: {
+        args: {
+            amount: a(float, "DX", structures.float)
+        },
+        opcode: "motion_changexby"
+    },
+    set_x: {
+        args: {
+            new_x: a(float, "X", structures.float)
+        },
+        opcode: "motion_setx"
+    },
+    change_y: {
+        args: {
+            amount: a(float, "DY", structures.float)
+        },
+        opcode: "motion_changeyby"
+    },
+    set_y: {
+        args: {
+            new_y: a(float, "Y", structures.float)
+        },
+        opcode: "motion_sety"
+    },
+    bounce_on_edge: {
+        args: {},
+        opcode: "motion_ifonedgebounce"
+    },
+    set_rot_style: {
+        args: {
+            new_style: a(str, "STYLE", structures.field, true)
+        },
+        opcode: "motion_setrotationstyle"
+    },
+    say_for_secs: {
+        args: {
+            message: a(str, "MESSAGE", structures.string),
+            duration: a(float, "SECS", structures.float)
+        },
+        opcode: "looks_sayforsecs"
+    },
+    say: {
+        args: {
+            message: a(str, "MESSAGE", structures.string)
+        },
+        opcode: "looks_say"
+    },
+    think_for_secs: {
+        args: {
+            message: a(str, "MESSAGE", structures.string),
+            duration: a(float, "SECS", structures.float)
+        },
+        opcode: "looks_thinkforsecs"
+    },
+    think: {
+        args: {
+            message: a(str, "MESSAGE", structures.string)
+        },
+        opcode: "looks_think"
+    },
+    set_costume: {
+        args: {
+            new_costume: a(str, "COSTUME", structures.string)
+        },
+        opcode: "looks_swtichcostumeto"
+    },
+    next_costume: {
+        args: {},
+        opcode: "looks_nextcostume"
+    },
+    set_backdrop: {
+        args: {
+            backdrop: a(str, "BACKDROP", structures.string)
+        },
+        opcode: "looks_switchbackdropto"
+    },
+    next_backdrop: {
+        args: {},
+        opcode: "looks_nextbackdrop"
+    },
+    change_size: {
+        args: {
+            amount: a(float, "CHANGE", structures.float)
+        },
+        opcode: "looks_changesizeby"
+    },
+    set_size: {
+        args: {
+            new_size: a(float, "SIZE", structures.float)
+        },
+        opcode: "looks_setsizeto"
+    },
+    change_graphic_effect: {
+        args: {
+            effect: a(str, "EFFECT", structures.field, true),
+            amount: a(float, "CHANGE", structures.float)
+        },
+        opcode: "looks_changeeffectby"
+    },
+    set_graphic_effect: {
+        args: {
+            effect: a(str, "EFFECT", structures.field, true),
+            new_value: a(float, "VALUE", structures.float)
+        },
+        opcode: "looks_seteffectto"
+    },
+    clear_graphic_effects: {
+        args: {},
+        opcode: "looks_cleargraphiceffects"
+    },
+    show: {
+        args: {},
+        opcode: "looks_show"
+    },
+    hide: {
+        args: {},
+        opcode: "looks_hide"
+    },
+    set_layer_front_back: {
+        args: {
+            front_or_back: a(str, "FRONT_BACK", structures.field, true)
+        },
+        opcode: "looks_gotofrontback"
+    },
+    change_layer: {
+        args: {
+            amount: a(float, "NUM", structures.float),
+            forward_or_backward: a(str, "FORWARD_BACKWARD", structures.field, true)
+        },
+        opcode: "looks_goforwardbackwardlayers"
+    },
+    play_sound: {
+        args: {
+            sound: a(str, "SOUND_MENU", structures.string)
+        },
+        opcode: "sound_playuntildone"
+    },
+    start_sound: {
+        args: {
+            sound: a(str, "SOUND_MENU", structures.string)
+        },
+        opcode: "sound_play"
+    },
+    stop_sounds: {
+        args: {},
+        opcode: "sound_stopallsounds"
+    },
+    change_sound_effect: {
+        args: {
+            effect: a(str, "EFFECT", structures.field, true),
+            amount: a(float, "VALUE", structures.float)
+        },
+        opcode: "sound_changeeffectby"
+    },
+    set_sound_effect: {
+        args: {
+            effect: a(str, "EFFECT", structures.field, true),
+            amount: a(float, "VALUE", structures.float)
+        },
+        opcode: "sound_seteffectto"
+    },
+    clear_sound_effects: {
+        args: {},
+        opcode: "sound_cleareffects"
+    },
+    change_volume: {
+        args: {
+            amount: a(float, "VOLUME", structures.float)
+        },
+        opcode: "sound_changevolumeby"
+    },
+    set_volume: {
+        args: {
+            new_volume: a(float, "VOLUME", structures.float)
+        },
+        opcode: "sound_setvolumeto"
+    },
+    broadcast: {
+        args: {
+            signal: a(str, "BROADCAST_INPUT", structures.str)
+        },
+        opcode: "event_broadcast"
+    },
+    broadcast_and_wait: {
+        args: {
+            signal: a(str, "BROADCAST_INPUT", structures.str)
+        },
+        opcode: "event_broadcastandwait"
+    },
+    sleep: {
+        args: {
+            duration: a(float, "DURATION", structures.float)
+        },
+        opcode: "control_wait"
+    },
+    stop: {
+        args: {
+            scope: a(str, "STOP_OPTION", structures.field, true)
+        },
+        opcode: "control_stop"
+    },
+    clone: {
+        args: {
+            sprite: a(str, "CLONE_OPTION", structures.string)
+        },
+        opcode: "control_create_clone_of"
+    },
+    delete_this_clone: {
+        args: {},
+        opcode: "control_delete_this_clone"
+    },
+    prompt: {
+        args: {
+            prompt: a(str, "QUESTION", structures.string)
+        },
+        opcode: "sensing_askandwait"
+    },
+    set_draggable: {
+        args: {
+            drag_mode: a(str, "DRAG_MODE", structures.field, true)
+        },
+        opcode: "sensing_setdragmode"
+    },
+    reset_timer: {
+        args: {},
+        opcode: "sensing_resettimer"
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../lib/blocks.js":"kSYJ1"}]},["8LntH","1KzgX"], "1KzgX", "parcelRequire94c2")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
-//# sourceMappingURL=index.ca3b80ad.js.map
+},{}],"3Cz8y":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = {
+    outer: [
+        "on",
+        "def",
+        "float",
+        "bool",
+        "str" // list definitions: str[] = ["a", "b", "c"]
+    ],
+    events: [
+        "flag",
+        "keydown",
+        "click",
+        "backdrop",
+        "loudness",
+        "clone",
+        "timer" // message: on message1, on some_message
+    ],
+    inner: [
+        "repeat",
+        "forever",
+        "if",
+        "else",
+        "elif",
+        "while",
+        "until"
+    ]
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["jVHsr","aztIg"], "aztIg", "parcelRequire94c2")
+
+//# sourceMappingURL=index.98710c1e.js.map

@@ -83,6 +83,7 @@ div.editor div.text-editor {
   font-family: Source Code Pro, monospace;
   transition: all .2s;
   position: relative;
+  overflow: hidden;
 }
 
 div.editor div.contenteditable:focus ~ div.text-editor {
@@ -114,6 +115,7 @@ div.text-editor pre.text {
   font-size: inherit;
   color: #000;
   counter-reset: line;
+  z-index: 1;
   border-radius: 0 .5rem .5rem 0;
   margin: 0;
   padding: 1rem 0;
@@ -184,27 +186,61 @@ ul.tabs li.tab img {
 
 div.editor div.files {
   color: #000;
+  -webkit-user-select: none;
+  user-select: none;
   padding: 1rem;
-  font-family: Source Code Pro, monospace;
-  font-size: .75rem;
+  font-size: .9rem;
   font-weight: normal;
+  line-height: 2;
+  position: relative;
+}
+
+div.editor div.files > :not(span.project-name) {
+  opacity: .6;
 }
 
 div.editor div.files ul.folder {
-  border-left: 1px solid #d3d3d3;
-  padding: 1rem;
+  cursor: default;
+  padding: 0 1rem;
   list-style-type: none;
   position: relative;
 }
 
-div.editor div.files ul.folder li.file:before {
+div.editor div.files li.folder-wrapper[data-closed] *, span.project-name[data-closed] ~ ul.root-folder {
+  display: none;
+}
+
+:is(div.editor div.files li.folder-wrapper[data-closed], span.project-name[data-closed]):before {
+  transform: rotate(-90deg)translate(.25em, -.25em);
+}
+
+div.editor div.files li.folder-wrapper, div.editor div.files span.project-name {
+  cursor: pointer;
+}
+
+:is(div.editor div.files li.folder-wrapper, div.editor div.files span.project-name):before {
   content: "";
-  width: .5rem;
-  border-bottom: 1px solid #d3d3d3;
+  height: .5em;
+  width: .5em;
+  background-image: url("folder-icon.a2d1537b.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-right: .5em;
   display: inline-block;
+}
+
+div.file-options a.new-file {
+  margin-right: .5rem;
+}
+
+div.file-options a img {
+  height: 1.5rem;
+}
+
+div.file-options {
   position: absolute;
-  left: 0;
-  transform: translateY(.5rem);
+  bottom: .5rem;
+  right: 1rem;
 }
 
 div.right {
