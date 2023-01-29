@@ -38,7 +38,7 @@ window.autocomplete = () => {
   completeEl.dataset.activeIndex = 0
   if(activeWord != "") {
     let validBlocks = {}
-    for(block in blocks) {
+    for(let block in blocks) {
       if(blocks[block].keyword == "outer" || (blocks[block].opcode.split("_")[0] == "event" && !["event_broadcast", "event_broadcastandwait"].includes(blocks[block].opcode))) {
         if(indentation == 0) validBlocks[block] = blocks[block]
       } else if(indentation != 0) validBlocks[block] = blocks[block]
