@@ -3232,6 +3232,24 @@ var P;
                         e.stopPropagation();
                     }
                 };
+                if (options.enableFlag !== false) {
+                  var flagButton = document.createElement('span');
+                  flagButton.className = 'player-button player-flag';
+                  flagButton.title = P.i18n.translate('player.controls.flag.title');
+                  this.controlsContainer.appendChild(flagButton);
+                  flagButton.addEventListener('click', clickFlag);
+                  flagButton.addEventListener('touchend', clickFlag);
+                  flagButton.addEventListener('touchstart', startTouchFlag);
+                  flagButton.addEventListener('touchstart', preventDefault);
+                }
+                if (options.enablePause !== false) {
+                  var pauseButton = document.createElement('span');
+                  pauseButton.className = 'player-button player-pause';
+                  this.controlsContainer.appendChild(pauseButton);
+                  pauseButton.addEventListener('click', clickPause);
+                  pauseButton.addEventListener('touchend', clickPause);
+                  pauseButton.addEventListener('touchstart', preventDefault);
+                }
                 if (options.enableStop !== false) {
                     var stopButton = document.createElement('span');
                     stopButton.className = 'player-button player-stop';
@@ -3239,24 +3257,6 @@ var P;
                     stopButton.addEventListener('click', clickStop);
                     stopButton.addEventListener('touchend', clickStop);
                     stopButton.addEventListener('touchstart', preventDefault);
-                }
-                if (options.enablePause !== false) {
-                    var pauseButton = document.createElement('span');
-                    pauseButton.className = 'player-button player-pause';
-                    this.controlsContainer.appendChild(pauseButton);
-                    pauseButton.addEventListener('click', clickPause);
-                    pauseButton.addEventListener('touchend', clickPause);
-                    pauseButton.addEventListener('touchstart', preventDefault);
-                }
-                if (options.enableFlag !== false) {
-                    var flagButton = document.createElement('span');
-                    flagButton.className = 'player-button player-flag';
-                    flagButton.title = P.i18n.translate('player.controls.flag.title');
-                    this.controlsContainer.appendChild(flagButton);
-                    flagButton.addEventListener('click', clickFlag);
-                    flagButton.addEventListener('touchend', clickFlag);
-                    flagButton.addEventListener('touchstart', startTouchFlag);
-                    flagButton.addEventListener('touchstart', preventDefault);
                 }
                 if (options.enableTurbo !== false) {
                     var turboText = document.createElement('span');
@@ -3409,19 +3409,6 @@ var P;
                 this.onerror.emit(error);
             }
             enterFullscreen() {
-                this.savedTheme = this.root.getAttribute('theme');
-                this.setOptions({ theme: 'dark' });
-                if (this.options.fullscreenMode === 'full') {
-                    if (this.root.requestFullScreenWithKeys) {
-                        this.root.requestFullScreenWithKeys();
-                    }
-                    else if (this.root.webkitRequestFullScreen) {
-                        this.root.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-                    }
-                    else if (this.root.requestFullscreen) {
-                        this.root.requestFullscreen();
-                    }
-                }
                 document.body.classList.add('player-body-fullscreen');
                 this.root.style.zIndex = this.MAGIC.LARGE_Z_INDEX;
                 this.enableAttribute('fullscreen');
@@ -3483,6 +3470,8 @@ var P;
                 }
                 this.root.style.paddingLeft = (window.innerWidth - w) / 2 + 'px';
                 this.root.style.paddingTop = (window.innerHeight - h - this.options.fullscreenPadding) / 2 + 'px';
+                this.root.style.setProperty('--lower-width-by', window.innerWidth - w + 'px');
+                this.root.style.setProperty('--lower-height-by', window.innerHeight - h - this.options.fullscreenPadding + 'px')
                 this.stage.setZoom(w / 480);
             }
             onfullscreenchange() {
@@ -3933,7 +3922,7 @@ var P;
                 this.errorEl = el;
             }
         }
-        ErrorHandler.BUG_REPORT_LINK = 'https://github.com/forkphorus/forkphorus/issues/new?template=bug_report.md&labels=bug&title=$title&body=$body&';
+        ErrorHandler.BUG_REPORT_LINK = 'https://github.com/text-based-scratch/bs3.illogicalapple.com/issues/new?template=bug_report.md&labels=bug&title=$title&body=$body&';
         player_1.ErrorHandler = ErrorHandler;
         class ProgressBar {
             constructor(player, options = {}) {

@@ -1,3 +1,5 @@
+- var feedbackLink = "https://github.com/text-based-scratch/bs3.illogicalapple.com/issues/new"
+
 doctype html
 
 html(lang="en")
@@ -16,7 +18,11 @@ html(lang="en")
       a.option(href="javascript:void(0)" tabindex="2") Edit 
       .divider
       input.title(type="text", value="Untitled Project", tabindex="3")
-      input.load-file(type="file", name="load-file", accept=".sb3")
+      button.share(tabindex="4") Share
+      a.feedback-wrapper(href=feedbackLink target="_blank")
+        button.feedback(tabindex="5")
+          img(src="./assets/feedback-icon.svg", alt="Feedback Icon")
+          span Give Feedback
     main 
       .left
         ul.tabs
@@ -24,22 +30,12 @@ html(lang="en")
             img(src="assets/code-icon.svg", alt="Code Icon" draggable="false")
             span Code
         .editor
-          .files
+          .files.file-target
             span.project-name untitled-project
             ul.folder.root-folder
-              li.file test.tbsprite
-              li.file img.png
-              li.file.folder-wrapper test-folder 
-                ul.folder 
-                  li.file nested.tbsprite 
-            div.file-options
-              a(href="javascript:void(0)" class="new-file")
-                img(src="assets/new.svg", alt="Upload File")
-              a(href="javascript:void(0)" class="new-folder")
-                img(src="assets/folder.svg", alt="Create Folder")
           .contenteditable(contenteditable="true")
             |&nbsp;
-          .text-editor(tabindex="4")
+          .text-editor(tabindex="6")
             pre.text
               div.caret.animation
             include includes/autocomplete.pug
@@ -51,19 +47,24 @@ html(lang="en")
               .sprite-info-row
                 .sprite-option
                   label(for="sprite-name") Sprite 
-                  input.sprite-name(placeholder="Name" name="sprite-name")
+                  input.sprite-name(placeholder="Name" name="sprite-name" value="Sprite1")
                 .flex-grow.sprite-option.flex
                   img(src="assets/x-icon.svg", alt="Left-right icon")
                   label(for="sprite-x") x
-                  input.flex-grow.sprite-x(placeholder="x" name="sprite-x")
+                  input.flex-grow.sprite-x(placeholder="x" name="sprite-x" value="0")
                 .flex-grow.sprite-option.flex
                   img(src="assets/y-icon.svg", alt="Left-right icon")
                   label(for="sprite-y") y
-                  input.flex-grow.sprite-y(placeholder="y" name="sprite-y")
-              .sprite-info-row 
+                  input.flex-grow.sprite-y(placeholder="y" name="sprite-y" value="0")
+              .sprite-info-row
                 .sprite-option.flex-grow
-                  label(for="file-path") File Path 
-                  input.file-type.flex-grow(placeholder="path/to/file.tbsprite" name="file-path")
-          .stage-selector
+                  label.no-bold(for="file-path") File Path 
+                  input.file-type.flex-grow(placeholder="path/to/file.tbsprite" name="file-path" value="./sprite.tbsprite" spellcheck="false")
+            .sprites.flex
+              .sprite.flex.active(data-index="0")
+                .sprite-name Sprite1
+            button.new-sprite(title="Add a Sprite")
+              img(src="assets/new-sprite.svg", alt="New Sprite")
+          .stage-selector(data-index="1")
             .sprite-pane-header.stage-header
               span Stage

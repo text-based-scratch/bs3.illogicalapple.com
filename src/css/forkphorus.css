@@ -182,21 +182,35 @@
   color: #000;
   height: auto;
 }
-.player-stage {
+.player-root:not([fullscreen]) .player-stage {
   width: 480px;
   height: 360px;
+}
+.player-root[fullscreen] .player-stage {
+  margin-right: calc(var(--lower-width-by) / 2);
+  border: 0.1875rem solid rgb(126, 133, 151);
 }
 /* Player Fullscreen */
 .player-root[fullscreen] {
   position: absolute;
   top: 0;
   left: 0;
-  background: #000;
+  background: white;
   height: 100%;
   width: 100%;
 }
+.player-root .player-click-to-play-container {
+  display: none;
+}
+.player-root[running] .player-flag[class][class][class][class], .player-flag[class][class][class][class]:active {
+  background-color: hsla(215, 100%, 65%, 0.35);
+  border-radius: 0.25rem;
+}
+/* .player-root[fullscreen] .player-stage {
+  width: calc(100vw - var(--lower-width-by));
+  height: calc(100% - 1rem - var(--lower-height-by));
+} */
 .player-body-fullscreen {
-  background: #000;
   overflow: hidden;
 }
 /* Player Errors */
@@ -240,7 +254,7 @@
 .player-controls .player-button {
   width: 32px;
   height: 32px;
-  float: right;
+  float: left;
   cursor: pointer;
   text-align: center;
   opacity: 0.4;
@@ -268,11 +282,14 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .player-controls .player-fullscreen-btn {
-  float: left;
+  float: right;
   background-position: -128px -0px;
 }
 .player-root[fullscreen] .player-controls .player-fullscreen-btn {
   background-position-x: -160px;
+}
+.player-root[fullscreen] .control-background-thingy {
+  display: block;
 }
 .player-controls .player-flag {
   background-position: 0px -0px;
@@ -288,10 +305,14 @@
 }
 .player-controls .player-turbo {
   display: none;
-  float: right;
 }
 .player-root[turbo] .player-turbo {
   display: block;
+  position: absolute;
+  left: 64px;
+  color: var(--secondary-color);
+  font-weight: bold;
+  font-size: 0.625em;
 }
 .player-controls .player-muted {
   float: left;
@@ -314,6 +335,14 @@
   animation-name: player-appear;
   animation-timing-function: steps(1, end);
   animation-duration: 0.5s;
+}
+.control-background-thingy {
+  width: 100vw;
+  height: 2.75rem;
+  position: absolute;
+  left: 0;
+  background-color: rgb(232, 237, 241);
+  display: none;
 }
 
 /* Player Progress Bar */
@@ -362,14 +391,14 @@
   height: 100%;
   cursor: pointer;
   pointer-events: all;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .player-click-to-play-icon {
-  width: 10em;
-  height: 10em;
+  width: 6rem;
+  height: 6rem;
   background-image: url(../assets/click-to-play.svg);
   background-size: 100% 100%;
 }

@@ -32,17 +32,58 @@ nav input.title {
   border: 1px dashed hsla(0, 0%, 0%, 0.15);
   color: white;
   background-color: hsla(0, 100%, 100%, 0.25);
-  padding: 0.5rem;
+  padding: 0 0.5rem;
+  height: 2rem;
   font-weight: bold;
   margin-left: 0.5rem;
   position: relative;
-  bottom: calc(0.75rem - 50% + 1px);
+  bottom: calc(0.75rem - 50% + 2px);
   transform: translateY(-50%);
   border-radius: 0.25rem;
   transition: 0.2s;
+  font-size: 0.8rem;
 }
 
 nav input.title:focus {
   border: 1px dashed transparent;
   background-color: white;
+}
+
+nav button {
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  padding: 0 0.75rem;
+  position: relative;
+  height: 2rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+nav button.share {
+  background-color: var(--secondary-color);
+  color: white;
+  margin-left: 0.5rem;
+  bottom: calc(0.75rem - 50% + 1px);
+  transform: translateY(-50%);
+}
+
+nav button.feedback {
+  background-color: white;
+  color: var(--main-color);
+  float: right;
+  position: relative;
+  top: 0.5rem;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+nav a.feedback-wrapper {
+  display: contents;
+}
+
+nav button.feedback img {
+  height: 2em;
+  margin-right: 0.5rem;
 }

@@ -4,7 +4,8 @@ export default {
     "def",
     "float",
     "bool",
-    "str" // list definitions: str[] = ["a", "b", "c"]
+    "str",
+    "load" // list definitions: str[] = ["a", "b", "c"]
   ],
   events: [
     "flag",

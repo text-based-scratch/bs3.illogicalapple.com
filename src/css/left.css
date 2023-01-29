@@ -38,7 +38,7 @@ div.editor div.text-editor {
 }
 
 div.editor div.contenteditable:focus ~ div.text-editor {
-  box-shadow: 0 0 0 0.25rem hsl(215deg 100% 65% / 35%);
+  box-shadow: var(--box-shadow);
   border-color: hsla(215, 100%, 65%, 1);
 }
 
@@ -145,6 +145,7 @@ div.editor div.files {
   font-size: 0.9rem;
   user-select: none;
   position: relative;
+  counter-reset: padding;
 }
 
 div.editor div.files > *:not(span.project-name) {
@@ -156,6 +157,7 @@ div.editor div.files ul.folder {
   position: relative;
   list-style-type: none;
   cursor: default;
+  counter-increment: padding;
 }
 
 div.editor div.files li.folder-wrapper[data-closed] *, span.project-name[data-closed] ~ ul.root-folder {
@@ -179,6 +181,9 @@ div.editor div.files li.folder-wrapper, div.editor div.files span.project-name {
   height: 0.5em;
   width: 0.5em;
   padding-right: 0.5em;
+  transition: 0.1s;
+  transition-property: transform;
+  transform: rotate(0) translate(0, 0);
 }
 
 div.file-options a.new-file {
@@ -194,3 +199,25 @@ div.file-options {
   bottom: 0.5rem;
   right: 1rem;
 }
+
+:is(.file-drag.folder li:last-child, .file-drag > ul.folder li:last-child, li.file.file-drag:not(.folder-wrapper)) {
+  box-shadow: 0 1px var(--main-color); /* feels kind of hacky but it works */
+}
+
+div.files li.file {
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/*li.file:is([data-type^="image/"])::before {
+  content: "";
+  background-image: url("../assets/file-icons/image.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 0.75em;
+  padding-right: 1.5em;
+  filter: invert(1);
+}*/

@@ -10,6 +10,11 @@ html, body {
   font-weight: bold;
   --text-secondary: hsla(225, 15%, 40%, 1);
   --main-color: hsla(215, 100%, 65%, 1);
+  --secondary-color: hsla(30, 100%, 55%, 1);
+  --tertiary-color: hsla(163, 85%, 40%, 1);
+  --lighter-color: hsla(215, 100%, 75%, 1);
+  --lightgray: hsla(0, 0%, 94%, 1);
+  --box-shadow: 0 0 0 0.25rem hsla(215deg, 100%, 65%, 35%);
 }
 
 input, div.text-editor {
@@ -30,6 +35,7 @@ main {
   width: 100vw;
   gap: 0.5rem;
   background-color: hsla(215, 100%, 95%, 1);
+  z-index: -10;
 }
 
 * {
@@ -38,4 +44,16 @@ main {
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.no-bold {
+  font-weight: normal;
+}
+
+.flex {
+  display: flex;
+}
+
+::selection {
+  background-color: rgba(77, 151, 255, 0.25);
 }

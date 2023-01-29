@@ -1,4 +1,4 @@
-import blocks from "../lib/blocks.js"
+import blocks from "../lib/all-blocks"
 
 let completeEl = $("ul.autocomplete")
 let tempListener = () => selectListener(activeWord)
@@ -37,8 +37,14 @@ window.autocomplete = () => {
   completeEl.style.display = "block"
   completeEl.dataset.activeIndex = 0
   if(activeWord != "") {
-    let goodCandidates = Object.entries(blocks).filter(block => block[0].startsWith(activeWord))
-    let worseCandidates = Object.entries(blocks).filter(block => block[0].includes(activeWord))
+    let validBlocks = {}
+    for(block in blocks) {
+      if(blocks[block].keyword == "outer" || (blocks[block].opcode.split("_")[0] == "event" && !["event_broadcast", "event_broadcastandwait"].includes(blocks[block].opcode))) {
+        if(indentation == 0) validBlocks[block] = blocks[block]
+      } else if(indentation != 0) validBlocks[block] = blocks[block]
+    }
+    let goodCandidates = Object.entries(validBlocks).filter(block => block[0].startsWith(activeWord))
+    let worseCandidates = Object.entries(validBlocks).filter(block => block[0].includes(activeWord))
     let candidateBlocks = []
     goodCandidates.concat(worseCandidates).forEach(candidate => {
       if(!candidateBlocks.map(e => e[1].opcode).includes(candidate[1].opcode)) {

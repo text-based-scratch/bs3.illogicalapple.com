@@ -1,13 +1,15 @@
 var player = new P.player.Player()
-var wrapper = document.querySelector("div.player-wrapper")
+let playerWrapper = document.querySelector("div.player-wrapper")
+let controlBackgroundThingy = document.createElement("div")
 
 player.setOptions({ autoplayPolicy: "never" })
 player.setOptions({ theme: "light" })
 player.setOptions({ focusOnLoad: false })
 
-wrapper.classList.add("has-ui")
+controlBackgroundThingy.classList.add("control-background-thingy")
+playerWrapper.classList.add("has-ui")
 player.addControls()
-new P.player.ProgressBar(player, { position: "controls" })
+player.root.prepend(controlBackgroundThingy)
 
 new P.player.ErrorHandler(player)
 document.querySelector(".player").appendChild(player.root)

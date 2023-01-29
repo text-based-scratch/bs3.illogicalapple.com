@@ -1,5 +1,4 @@
-import b from "../lib/blocks.js"
-import k from "../lib/keywords.js"
+import blocks from "../lib/all-blocks"
 
 window.formatData = {
   motion: "4c97ff",
@@ -15,22 +14,6 @@ window.formatData = {
   keyword: "ff6680"
 }
 
-let keywords = {}
-
-for(let word of k.outer.concat(k.inner)) {
-  keywords[word] = {
-    opcode: "keyword_" + word.replaceAll("_", "")
-  }
-}
-
-for(let word of k.events) {
-  keywords[word] = {
-    opcode: "event_" + word.replaceAll("_", "")
-  }
-}
-
-let blocks = Object.assign(b, keywords)
-
 function escape(text) {
   return text.replaceAll("<", "&lt;", "&", "&amp;")
 }
@@ -39,7 +22,7 @@ function format(lines) {
     let innerText = line.innerText.split(/[^a-z0-9\_]/i)
     let commonWords = innerText.filter(value => blocks.hasOwnProperty(value))
     line.innerHTML = line.innerHTML
-      .replace(/\-?[0-9\.]+/g, `<span class="number" style="color: #${formatData.operators}">$&</span>`)
+      .replace(/\-?[0-9\.]*[0-9]/g, `<span class="number" style="color: #${formatData.operators}">$&</span>`)
       .replaceAll("true", `<span class="boolean" style="color: #${formatData.bool}">true</span>`)
       .replaceAll("false", `<span class="boolean" style="color: #${formatData.bool}">false</span>`)
     commonWords.forEach(word => {
